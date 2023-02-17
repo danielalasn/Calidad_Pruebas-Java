@@ -4,7 +4,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class TestCalculadora {
@@ -15,6 +17,11 @@ public class TestCalculadora {
 	public void setup() {
 		calculadora = new Calculadora();
 		System.out.println("Este es el before");
+	}
+	
+	@BeforeClass
+	public static void setupClass() {
+		System.out.println("Before Class");
 	}
 	
 	@Test
@@ -82,6 +89,11 @@ public class TestCalculadora {
 	@After
 	public void clean() {
 		System.out.println("After");
+	}
+	
+	@AfterClass
+	public static void cleanClass() {
+		System.out.println("After Class");
 	}
 
 }
