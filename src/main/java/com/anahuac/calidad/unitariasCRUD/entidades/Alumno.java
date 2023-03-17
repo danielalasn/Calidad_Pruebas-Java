@@ -39,4 +39,11 @@ public class Alumno {
 		this.email = email;
 	}
 	
+	public Alumno(String nombre, String apellido, String email) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = email;
+	}
+	
 }

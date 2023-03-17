@@ -99,7 +99,7 @@ public class ServicioAlumnoTest {
 		});
 		
 		String nuevoEmail = "nuevoEmail";
-		String emailActualizado = defaultAlumno.getEmail();
+		
 		
 		Alumno nuevoAlumno;
 		nuevoAlumno = servicio.actualizarEmail(defaultAlumno, nuevoEmail);

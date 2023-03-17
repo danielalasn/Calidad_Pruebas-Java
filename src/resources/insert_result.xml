@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset reset_sequences=", dept_seq">
+	
+ <Alumno id="1" nombre="alumno001" apellido="apellido" email="hola1@hola.com" /> </dataset>
+ 
+ 
+ 
