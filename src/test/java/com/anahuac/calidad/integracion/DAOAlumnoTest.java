@@ -55,8 +55,8 @@ public class DAOAlumnoTest extends DBTestCase{
 	}
 
 	@Test
-	 public void testAddAlumno() {
-	  Alumno alumno = new Alumno("alumno001", "apellido", "hola1@hola.com");
+	 public void testAgregarAlumno() {
+	  Alumno alumno = new Alumno("alumno1", "apellido1", "hola1@hola.com");
 	  
 	  daoMySql.crearAlumno(alumno);
 	  
@@ -79,5 +79,61 @@ public class DAOAlumnoTest extends DBTestCase{
 	   fail("Error in insert test: " + e.getMessage());
 	  } 
 	 }
+	
+	@Test
+	public void testBorrarAlumno() {
+		Alumno alumno = new Alumno("alumno1", "apellido1", "hola1@hola.com");
+		
+		daoMySql.borrarAlumno(alumno);
+		
+		// Verify data in database
+		try {
+			// This is the full database
+			IDataSet databaseDataSet = getConnection().createDataSet(); 
+			
+			ITable actualTable = databaseDataSet.getTable("Alumno");
+			
+			// Read XML with the expected result
+			IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/delete_result.xml"));
+			ITable expectedTable = expectedDataSet.getTable("Alumno");
+			
+			Assertion.assertEquals(expectedTable, actualTable);
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			fail("Error in delete test: " + e.getMessage());
+		}	
+	}
+	
+	@Test
+	public void testUpdateEmail() {
+		Alumno alumno = new Alumno("alumno1", "apellido1", "hola1@hola.com");
+		String nuevoCorreo = "emailUpdated@gmail.com";
+		
+		// Set the change in the email field
+		alumno.setEmail(nuevoCorreo);
+		// call update method
+		daoMySql.actualizarEmail(alumno, nuevoCorreo);
+		
+		// Verify data in database
+		try {
+			// This is the full database
+			IDataSet databaseDataSet = getConnection().createDataSet(); 
+			
+			ITable actualTable = databaseDataSet.getTable("Alumno");
+			
+			// Read XML with the expected result
+			IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/resources/update_result.xml"));
+			ITable expectedTable = expectedDataSet.getTable("Alumno");
+			
+			Assertion.assertEquals(expectedTable, actualTable);
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			fail("Error in update email test: " + e.getMessage());
+		}	
+	} 
 
 }

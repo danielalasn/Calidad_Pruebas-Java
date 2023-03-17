@@ -58,7 +58,7 @@ public class DAOAlumnoMySQL implements IDAOAlumno {
 		  try {
 		   // Declare statement query to run
 		   PreparedStatement preparedStatement;
-		   preparedStatement = connection.prepareStatement("Delete from alumnos_tbl WHERE id = ?");
+		   preparedStatement = connection.prepareStatement("Delete from Alumno WHERE id = ?");
 		   // Set the values to match in the ? on query
 		   preparedStatement.setInt(1, alumno.getID());
 
@@ -91,7 +91,7 @@ public class DAOAlumnoMySQL implements IDAOAlumno {
 
 		  try {
 		   // Declare statement query to run
-		   preparedStatement = connection.prepareStatement("SELECT * from alumnos_tbl WHERE id = ?");
+		   preparedStatement = connection.prepareStatement("SELECT * from Alumno WHERE id = ?");
 		   // Set the values to match in the ? on query
 		   preparedStatement.setInt(1, iD);
 		   rs = preparedStatement.executeQuery();
