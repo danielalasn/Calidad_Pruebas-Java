@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset reset_sequences=", dept_seq">
-	
- <Alumno id="1" nombre="alumno001" apellido="apellido" email="hola1@hola.com" /> </dataset>
+	<Alumno id="1" nombre="alumno1" apellido="apellido1" email="hola1@hola.com" />
+	<Alumno id="2" nombre="alumno2" apellido="apellido2" email="hola2@hola.com" />
+	<Alumno id="3" nombre="alumno3" apellido="apellido3" email="hola3@hola.com" />
+ 	<Alumno id="4" nombre="alumno4" apellido="apellido4" email="hola4@hola.com" /> 
+ </dataset>
  
  
  

@@ -6,7 +6,11 @@ import static org.hamcrest.Matchers.is;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -129,5 +133,24 @@ public class ServicioAlumnoTest {
 		alumnoObtenido = servicio.consultarDatosAlumno(0);
 		
 		assertThat(defaultAlumno, is(alumnoObtenido));
+	}
+	
+	@Test
+	public void retrieveAll() {
+	    Alumno defaultAlumno = new Alumno(1,"Daniel","Alas", "daniel.alas1609@gmail.com");
+	    baseDeDatos.put(0, defaultAlumno);
+	    
+	    Alumno alumno2 = new Alumno(2,"Daniel2","Alas2", "daniel.alas16092@gmail.com");
+	    baseDeDatos.put(1, alumno2);
+	    
+	    when(dao.retrieveAllAlumnos()).thenAnswer(new Answer <List<Alumno>>(){
+	        public List<Alumno> answer(InvocationOnMock invocation) throws Throwable {
+	            return new ArrayList<Alumno>(baseDeDatos.values());
+	        }
+	    });
+	    
+	    List<Alumno> resultadoEsperado = Arrays.asList(defaultAlumno, alumno2);
+	    assertThat(baseDeDatos.size(), is(resultadoEsperado.size()));
+//	    assertThat(baseDeDatos, containsExactlyInAnyOrder(resultadoEsperado.toArray()));
 	}
 }

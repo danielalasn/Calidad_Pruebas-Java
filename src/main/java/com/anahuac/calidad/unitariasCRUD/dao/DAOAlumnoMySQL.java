@@ -190,6 +190,31 @@ public class DAOAlumnoMySQL implements IDAOAlumno {
 		  // Return statement
 		  return alumno;
 	}
+	
+	public void resetSequencia() {
+		Connection connection = getConnectionMySQL();
+		  boolean result = false;
+
+		  try {
+		   // Declare statement query to run
+		   PreparedStatement preparedStatement;
+		   preparedStatement = connection.prepareStatement("ALTER TABLE Alumno AUTO_INCREMENT = ?");
+		   preparedStatement.setInt(1, 0);
+		   
+
+		   // Return the result of connection and statement
+		   if (preparedStatement.executeUpdate() >= 1) {
+		    result = true;
+		   }
+		   // Close connection with the database
+		   connection.close();
+		   preparedStatement.close();
+
+		  } catch (Exception e) {
+		   System.out.println(e);
+		  }
+		  // Return statement
+	}
 			
 	public Connection getConnectionMySQL() {
 

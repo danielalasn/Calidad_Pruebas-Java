@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<alumnos_tbl id="1" nombre="alumno1" apellido="apellido1" email="emailUpdated@hola.com" />
+	<Alumno id="1" nombre="alumno1" apellido="apellido1" email="emailUpdated@gmail.com" />
+	<Alumno id="2" nombre="alumno2" apellido="apellido2" email="hola2@hola.com" />
+	<Alumno id="3" nombre="alumno3" apellido="apellido3" email="hola3@hola.com" />
+	
+	
 </dataset>
