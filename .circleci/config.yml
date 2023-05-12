@@ -25,11 +25,11 @@ jobs:
       # Then run your tests!
       - run:
           name: Unit Test
-          command: mvn test -Dtest = "ServicioAlumnoTest"
+          command: mvn test -Dtest="ServicioAlumnoTest"
           
       - run:
           name: Integration Test
-          command: mvn test -Dtest = "DAOAlumnoTest"
+          command: mvn test -Dtest="DAOAlumnoTest"
         
         
 
