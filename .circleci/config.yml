@@ -24,8 +24,14 @@ jobs:
           command: mvn -B -DskipTests clean package
       # Then run your tests!
       - run:
-          name: Test
-          command: mvn test
+          name: Unit Test
+          command: mvn test -Dtest = "ServicioAlumnoTest"
+          
+      - run:
+        name: Integration Test
+        command: mvn test -Dtest = "DAOAlumnoTest"
+        
+        
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
