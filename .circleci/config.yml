@@ -4,34 +4,41 @@ version: 2.1
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+
+version: 2.1
+
 jobs:
-  # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
-  build-and-test:
-    # These next lines define a Docker executor: https://circleci.com/docs/2.0/executor-types/
-    # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # Be sure to update the Docker image tag below to openjdk version of your application.
-    # A list of available CircleCI Docker Convenience Images are available here: https://circleci.com/developer/images/image/cimg/openjdk
+  build:
     docker:
-      - image: cimg/openjdk:11.0
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+      - image: circleci/openjdk:8-jdk
+        environment:
+          DB_HOST: localhost
+          DB_PORT: 3307
+          DB_NAME: calidad
+          DB_USER: root
+          DB_PASSWORD: 123456
+
     steps:
-      # Checkout the code as the first step.
-      - checkout
-      # Use mvn clean and package as the standard maven build phase
       - run:
-          name: Build
-          command: mvn -B -DskipTests clean package
-      # Then run your tests!
+          name: Install MySQL
+          command: |
+            sudo apt-get update
+            sudo apt-get install mysql-client -y
+
       - run:
-          name: Unit Test
-          command: mvn test -Dtest="ServicioAlumnoTest"
-          
+          name: Configure MySQL
+          command: |
+            echo "Waiting for MySQL to start..."
+            while ! mysqladmin ping -h $DB_HOST -P $DB_PORT --silent; do sleep 1; done
+            echo "MySQL started."
+
+            mysql -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD -e "CREATE DATABASE $DB_NAME;"
+            mysql -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD $DB_NAME < src/resources/iniDB.sql
+
       - run:
-          name: Integration Test
-          command: mvn test -Dtest="DAOAlumnoTest"
-        
-        
+          name: Run Tests
+          command: |
+            ./gradlew test
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
