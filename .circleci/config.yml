@@ -34,9 +34,6 @@ jobs:
             sudo apt-get update
             sudo apt-get install default-mysql-client --fix-missing
       - run:
-          name: Create DB
-          command: mysql --host="127.0.0.1" -u root --password="" < scripts/setup.sql
-      - run:
           name: Stop existing Xvfb server
           command: |
             sudo pkill Xvfb || true
@@ -45,6 +42,9 @@ jobs:
           name: Start Xvfb
           command: Xvfb :99 -screen 0 1280x1024x24
           background: true
+      - run:
+          name: Unit Test
+          command: mvn test -Dtest="ServicioAlumnoTest"
       - run:
           name: Test
           command: mvn test
