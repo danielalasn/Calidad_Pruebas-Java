@@ -20,11 +20,15 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          name: Install MySQL
-          command: |
-            sudo apt-get update
-            sudo apt-get install mysql-client -y
+    - run:
+        name: Install MySQL
+        command: |
+          docker run -d --name mysql-container -p 3307:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql:latest
+          echo "Waiting for MySQL to start..."
+          sleep 10
+          echo "MySQL started."
+          mysql -h localhost -P 3307 -u root -p123456 -e "CREATE DATABASE calidad;"
+          mysql -h localhost -P 3307 -u root -p123456 calidad < src/resources/iniDB.sql
 
       - run:
           name: Configure MySQL
