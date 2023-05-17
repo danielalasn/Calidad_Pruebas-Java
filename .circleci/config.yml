@@ -12,6 +12,8 @@ jobs:
           DB_PASSWORD: 123456
 
     steps:
+      - checkout
+
       - run:
           name: Install MySQL
           command: |
